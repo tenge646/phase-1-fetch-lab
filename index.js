@@ -3,6 +3,8 @@ function fetchBooks() {
   
 }
 
+
+
 function renderBooks(books) {
   const main = document.querySelector('main');
   books.forEach(book => {
@@ -15,3 +17,25 @@ function renderBooks(books) {
 document.addEventListener('DOMContentLoaded', function() {
   fetchBooks();
 });
+
+// index.js
+
+function fetchBooks() {
+ return fetch('https://anapioficeandfire.com/api/books')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    
+      return response.json();
+    })
+    .then(data => {
+
+      renderBooks(data);
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', fetchBooks);
